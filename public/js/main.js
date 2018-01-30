@@ -18,10 +18,16 @@ sendMessageForm.addEventListener('submit', (event) => {
   socket.emit('send-message', {message});
 });
 
+setUsernameForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  let username = usernameInput.value;
+  socket.emit('submit-username', {username});
+});
+
 socket.on('receive-message', (data) => {
   console.log('RECEIVED: ', data);
   let div = document.createElement('div');
-  div.textContent = data.message;
+  div.textContent = `${data.username} || ${data.message}`;
 
   messagesContainer.appendChild(div);
 
